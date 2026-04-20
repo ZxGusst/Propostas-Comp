@@ -110,10 +110,12 @@
       margin-top: 12px;
     }
     .tb-label { color: #333; font-size: 14px; font-weight: 600; }
-    .tb-right { display: flex; align-items: center; gap: 12px; }
-    .tb-badge { background: rgba(232,57,57,0.1); color: #e83939; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; }
-    .tb-original { color: #999; font-size: 14px; text-decoration: line-through; }
-    .tb-final { color: #0a0a0a; font-size: 22px; font-weight: 700; }
+    .tb-right { display: flex; align-items: flex-end; }
+    .tb-stack { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+    .tb-original { color: #aaa; font-size: 12px; text-decoration: line-through; font-family: 'DM Sans', sans-serif; }
+    .tb-bottom-row { display: flex; align-items: center; gap: 8px; }
+    .tb-badge { background: rgba(232,57,57,0.1); color: #e83939; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
+    .tb-final { color: #0a0a0a; font-size: 22px; font-weight: 700; white-space: nowrap; }
 
     .divider { height: 1px; background: linear-gradient(90deg, transparent, #333, transparent); margin: 48px 0; }
 
@@ -145,6 +147,9 @@
     .payment-row.first .payment-month { color: #C9FF58; }
     .payment-label { color: #555; font-size: 11px; }
     .payment-right { display: flex; align-items: center; gap: 10px; }
+    .payment-stack { flex-direction: column; align-items: flex-end; gap: 2px; }
+    .payment-original { color: #666; font-size: 11px; text-decoration: line-through; font-family: 'DM Sans', sans-serif; }
+    .payment-bottom-row { display: flex; align-items: center; gap: 8px; }
     .payment-badge { background: rgba(200,255,0,0.12); color: #C9FF58; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
     .payment-value { color: #fff; font-size: 15px; font-weight: 600; }
 
@@ -256,7 +261,7 @@
 
       <div class="total-bar">
         <div class="tb-label">Subtotal Opera&ccedil;&atilde;o 01</div>
-        <div class="tb-right"><span class="tb-final">R$ 2.200</span></div>
+        <div class="tb-right"><div class="tb-stack"><span class="tb-final">R$ 2.200</span></div></div>
       </div>
     </div>
 
@@ -321,7 +326,7 @@
 
       <div class="total-bar">
         <div class="tb-label">Subtotal Opera&ccedil;&atilde;o 02</div>
-        <div class="tb-right"><span class="tb-final">R$ 5.100</span></div>
+        <div class="tb-right"><div class="tb-stack"><span class="tb-final">R$ 5.100</span></div></div>
       </div>
     </div>
 
@@ -353,7 +358,13 @@
         <div class="payment-rows">
           <div class="payment-row first">
             <div><div class="payment-month">Maio/2026</div><div class="payment-label">1&ordf; parcela &middot; Fechamento</div></div>
-            <div class="payment-right"><span class="payment-badge">-5% FECHAMENTO</span><span style="color:#666;font-size:13px;text-decoration:line-through;font-family:'DM Sans',sans-serif">R$ 1.390</span><span class="payment-value">R$ 1.320</span></div>
+            <div class="payment-right payment-stack">
+              <span class="payment-original">R$ 1.390</span>
+              <div class="payment-bottom-row">
+                <span class="payment-badge">-5% FECHAMENTO</span>
+                <span class="payment-value">R$ 1.320</span>
+              </div>
+            </div>
           </div>
           <div class="payment-row">
             <div><div class="payment-month">Junho/2026</div><div class="payment-label">2&ordf; parcela</div></div>
@@ -417,15 +428,19 @@
 
       <div class="total-bar">
         <div class="tb-label">Total Bruto</div>
-        <div class="tb-right"><span class="tb-final">R$ 7.300</span></div>
+        <div class="tb-right"><div class="tb-stack"><span class="tb-final">R$ 7.300</span></div></div>
       </div>
       <div style="height:12px"></div>
       <div class="total-bar">
         <div class="tb-label">Total Pacote</div>
         <div class="tb-right">
-          <span class="tb-badge">-5% PACOTE</span>
-          <span class="tb-original">R$ 7.300</span>
-          <span class="tb-final">R$ 6.950</span>
+          <div class="tb-stack">
+            <span class="tb-original">R$ 7.300</span>
+            <div class="tb-bottom-row">
+              <span class="tb-badge">-5% PACOTE</span>
+              <span class="tb-final">R$ 6.950</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
