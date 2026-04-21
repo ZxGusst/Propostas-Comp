@@ -1,0 +1,7 @@
+node_modules/
+package-lock.json
+*.pdf
+gerar-pdf.js
+capa-navegacao.html
+gen_html.py
+gen_capa.py

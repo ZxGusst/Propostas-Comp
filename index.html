@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proposta — Festival Pista Livre</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0a0a0a; min-height: 100vh; color: #fff; font-family: 'DM Sans', sans-serif; }
+
+    .header { padding: 40px 32px 0; }
+    .header-top { display: flex; align-items: center; gap: 12px; }
+    .header-sub { color: #666; font-size: 13px; letter-spacing: 0.05em; height: 40px; display: flex; align-items: flex-end; }
+    .header h1 { font-size: 32px; font-weight: 700; line-height: 1.15; margin-top: 6px; }
+    .header h1 em { color: #C9FF58; font-family: 'Instrument Serif', serif; font-weight: 400; font-style: italic; font-size: 36px; }
+    .header-desc { margin-top: 16px; color: #555; font-size: 13px; line-height: 1.6; max-width: 500px; }
+    .header-desc strong { color: #ccc; font-weight: 600; }
+
+    .tabs { padding: 32px 32px 0; display: flex; gap: 8px; flex-wrap: wrap; }
+    .tab-btn { background: transparent; border: 1px solid #1a1a1a; color: #555; padding: 10px 16px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+    .tab-btn.active { background: #1a1a1a; border-color: #333; color: #fff; }
+
+    .content { padding: 32px 32px 40px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .op-label { color: #666; font-size: 12px; margin-bottom: 4px; }
+    .op-title { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+    .op-sub { color: #C9FF58; font-size: 14px; font-family: 'Instrument Serif', serif; font-style: italic; margin-bottom: 32px; }
+    .op-sub small { display: block; color: #555; font-family: 'DM Sans', sans-serif; font-style: normal; font-size: 11px; }
+
+    .section { margin-bottom: 48px; }
+    .section-title { letter-spacing: 0.25em; font-size: 11px; font-weight: 600; color: #999; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+
+    .price-row { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0; border-bottom: 1px solid #1f1f1f; }
+    .pr-label { color: #ccc; font-size: 14px; }
+    .pr-sub { color: #666; font-size: 11px; margin-top: 2px; }
+    .pr-value { color: #fff; font-size: 15px; font-weight: 600; white-space: nowrap; }
+
+    .bullet-box { background: #111; border: 1px solid #1f1f1f; border-radius: 10px; padding: 20px 20px 8px; }
+    .bullet-item { display: flex; gap: 12px; margin-bottom: 16px; align-items: flex-start; }
+    .bullet-dot { width: 8px; height: 8px; border-radius: 50%; background: #C9FF58; margin-top: 6px; flex-shrink: 0; }
+    .bullet-title { color: #e0e0e0; font-size: 14px; font-weight: 500; }
+    .bullet-desc { color: #777; font-size: 12px; margin-top: 3px; line-height: 1.5; }
+
+    .total-bar { background: #fff; border-radius: 8px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+    .tb-label { color: #333; font-size: 14px; font-weight: 600; }
+    .tb-right { display: flex; align-items: flex-end; }
+    .tb-stack { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+    .tb-original { color: #aaa; font-size: 12px; text-decoration: line-through; font-family: 'DM Sans', sans-serif; }
+    .tb-bottom-row { display: flex; align-items: center; gap: 8px; }
+    .tb-badge { background: rgba(232,57,57,0.1); color: #e83939; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
+    .tb-final { color: #0a0a0a; font-size: 22px; font-weight: 700; white-space: nowrap; }
+
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, #333, transparent); margin: 48px 0; }
+
+    .shotdeck-cam-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .shotdeck-cam-dot { width: 10px; height: 10px; border-radius: 50%; background: #C9FF58; flex-shrink: 0; }
+    .shotdeck-cam-name { color: #e0e0e0; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
+    .shotdeck-frame { color: #999; font-size: 12px; margin-bottom: 10px; }
+    .shotdeck-img { width: 100%; border-radius: 8px; display: block; margin-bottom: 8px; }
+    .shotdeck-ref { color: #777; font-size: 11px; }
+    .shotdeck-ref a { color: #777; text-decoration: underline; transition: color 0.2s; }
+    .shotdeck-ref a:hover { color: #C9FF58; }
+    .shotdeck-card { margin-bottom: 24px; }
+
+    .payment-intro { color: #888; font-size: 13px; line-height: 1.7; margin-bottom: 20px; }
+    .payment-intro strong { color: #fff; font-weight: 600; }
+    .payment-intro .accent { color: #C9FF58; font-weight: 700; font-size: 15px; }
+    .payment-rows { display: flex; flex-direction: column; gap: 6px; }
+    .payment-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #0f0f0f; border: 1px solid #1a1a1a; border-radius: 8px; }
+    .payment-row.first { background: rgba(200,255,0,0.05); border-color: rgba(200,255,0,0.15); }
+    .payment-month { font-size: 13px; font-weight: 600; color: #aaa; }
+    .payment-row.first .payment-month { color: #C9FF58; }
+    .payment-label { color: #555; font-size: 11px; }
+    .payment-right { display: flex; align-items: center; gap: 10px; }
+    .payment-stack { flex-direction: column; align-items: flex-end; gap: 2px; }
+    .payment-badge { background: rgba(200,255,0,0.12); color: #C9FF58; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+    .payment-value { color: #fff; font-size: 15px; font-weight: 600; }
+
+    .timeline { position: relative; padding-left: 20px; }
+    .timeline-line { position: absolute; left: 4px; top: 8px; bottom: 8px; width: 1px; background: #2a2a2a; }
+    .timeline-item { position: relative; margin-bottom: 28px; padding-left: 20px; }
+    .timeline-dot { position: absolute; left: -17px; top: 6px; width: 9px; height: 9px; border-radius: 50%; background: #333; border: 2px solid #444; }
+    .timeline-dot.active { background: #C9FF58; border-color: #C9FF58; }
+    .timeline-date { color: #777; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .timeline-item.active .timeline-date { color: #C9FF58; }
+    .timeline-title { color: #e0e0e0; font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+    .timeline-desc { color: #666; font-size: 12px; line-height: 1.5; }
+
+    .nota { margin-top: 16px; padding: 14px 18px; background: rgba(200,255,0,0.04); border: 1px solid rgba(200,255,0,0.1); border-radius: 8px; color: #888; font-size: 12px; line-height: 1.6; }
+    .nota .accent { color: #C9FF58; font-weight: 600; }
+
+    .footer { border-top: 1px solid #1a1a1a; padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-contact-label { color: #555; font-size: 10px; letter-spacing: 0.05em; }
+    .footer-contact-email { color: #777; font-size: 11px; }
+    .footer-tagline { color: #333; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; }
+
+    .resumo-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid #1f1f1f; }
+    .resumo-left { display: flex; flex-direction: column; }
+    .resumo-num { color: #555; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; margin-bottom: 3px; }
+    .resumo-title { color: #e0e0e0; font-size: 15px; font-weight: 600; }
+    .resumo-sub { color: #666; font-size: 12px; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-top">
+      <svg width="18" height="88" viewBox="0 0 36 175" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M31.4209 0.53857C34.3116 2.2404 34.9508 8.4981 33.3344 19.3035L32.8255 22.6217L32.1863 25.9398C31.7588 28.6636 31.4209 30.8336 31.1644 32.45C30.57 37.299 30.4804 40.9591 30.9079 43.4264C31.1644 45.0427 31.3761 46.5328 31.5471 47.8927C31.885 49.851 32.1863 51.7238 32.4387 53.5112C33.2041 58.2787 33.8434 62.6188 34.3523 66.5314C35.7121 77.5933 36.1803 85.3412 35.7569 89.7627C35.4149 92.8284 34.9915 96.5293 34.4785 100.869C33.7131 106.146 32.9476 110.954 32.1782 115.294C29.9633 127.378 27.9236 133.847 26.0507 134.694C23.8359 135.631 21.3687 135.289 18.649 133.672C15.9252 132.056 14.3089 130.098 13.8 127.801C13.458 126.271 13.3725 123.844 13.5435 120.526C13.629 119.333 13.7552 117.717 13.9262 115.677L14.1827 113.124L14.4392 110.445C15.2901 101 15.0784 93.8096 13.8 88.871C13.0346 85.8949 12.0982 83.1711 10.9907 80.7039C10.2253 79.0875 9.15862 77.0885 7.79878 74.7027C5.07504 70.0247 3.3325 65.9411 2.56708 62.4478C1.03625 55.555 0.185322 46.8341 0.0143248 36.2811C-0.156673 23.7698 1.20318 16.1116 4.09792 13.3064C7.58709 9.73172 12.3099 6.45834 18.2663 3.4781C24.6502 0.245432 29.031 -0.735765 31.4127 0.542646L31.4209 0.53857ZM30.6555 152.82C32.0153 157.075 31.5919 161.968 29.377 167.501C27.2477 172.949 24.9108 175.16 22.358 174.138C19.2068 172.859 16.1044 171.076 13.0386 168.776C9.46397 166.052 7.76215 163.796 7.93315 162.009C8.27107 159.456 9.12199 156.692 10.4859 153.712C12.1877 150.222 13.9751 148.268 15.8479 147.841C18.4861 147.161 21.2506 147.161 24.1453 147.841C27.6345 148.606 29.8045 150.267 30.6555 152.82Z" fill="#C9FF58"/></svg>
+      <div class="header-sub">STUDIOCOMP · PROPOSTA COMERCIAL</div>
+    </div>
+    <h1>Cobertura <em>Audiovisual</em></h1>
+    <div class="header-desc">
+      <strong>Cliente — Festival Pista Livre</strong><br/>
+      Cobertura multicâmera completa · Dois palcos · 31 sets · 20h de música eletrônica<br/>
+      Museu Nacional da República, Brasília · 25 e 26 de abril de 2026
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('pista-externa', this)">01 · Pista Externa</button>
+    <button class="tab-btn" onclick="switchTab('pista-coletivos', this)">02 · Pista Coletivos</button>
+    <button class="tab-btn" onclick="switchTab('pacote', this)">Pacote Completo</button>
+  </div>
+
+  <div class="content">
+
+    <!-- ===== ABA 1: PISTA EXTERNA ===== -->
+    <div class="tab-panel active" id="tab-pista-externa">
+      <div class="op-label">Operação 01</div>
+      <div class="op-title">PISTA EXTERNA</div>
+      <div class="op-sub">
+        Palco principal · Headliners internacionais
+        <small>Museu Nacional da República · Sáb 14h–03h30 · Dom 14h–00h30</small>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Escopo da Captação</div>
+        <div class="price-row">
+          <div>
+            <div class="pr-label">Captação</div>
+            <div class="pr-sub">Incluso: 5 câmeras + drone · equipe de 6 operadores · 2 dias</div>
+          </div>
+        </div>
+        <div class="price-row">
+          <div>
+            <div class="pr-label">Equipamentos</div>
+            <div class="pr-sub">BlackMagic 6K Pro · Canon R5C · Sony A7IV · Sony FX3 · DJI Mavic Air 3</div>
+          </div>
+        </div>
+        <div class="price-row">
+          <div>
+            <div class="pr-label">Pós-produção</div>
+            <div class="pr-sub">Full sets com áudio sync · mín. 10 drops por artista · color grading cinematográfico</div>
+          </div>
+        </div>
+        <div class="price-row">
+          <div>
+            <div class="pr-label">Fotografia</div>
+            <div class="pr-sub">Galeria completa em alta resolução · 1 fotógrafo dedicado</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">O que está incluso</div>
+        <div class="bullet-box">
+          <div class="bullet-item">
+            <div class="bullet-dot"></div>
+            <div>
+              <div class="bullet-title">5 câmeras no palco principal</div>
+              <div class="bullet-desc">BlackMagic 6K Pro (RAW), Canon R5C (Cinema RAW), Sony A7IV, Sony FX3 e Sony A7SIII cobrindo ângulos complementares.</div>
+            </div>
+          </div>
+          <div class="bullet-item">
+            <div class="bullet-dot"></div>
+            <div>
+              <div class="bullet-title">Drone DJI Mavic Air 3</div>
+              <div class="bullet-desc">Cobertura aérea compartilhada entre os dois palcos. Autorização DECEA orientada pela equipe.</div>
+            </div>
+          </div>
+          <div class="bullet-item">
+            <div class="bullet-dot"></div>
+            <div>
+              <div class="bullet-title">Full sets com áudio sincronizado</div>
+              <div class="bullet-desc">Captação via MSTR OUT + microfone ambiente + câmeras. Sincronização no processo de edição.</div>
+            </div>
+          </div>
+          <div class="bullet-item">
+            <div class="bullet-dot"></div>
+            <div>
+              <div class="bullet-title">Mínimo 10 drops por artista</div>
+              <div class="bullet-desc">Entregues em formato vertical (9:16) e horizontal (16:9) para todas as plataformas. Prazo: 48h após cada set.</div>
+            </div>
+          </div>
+          <div class="bullet-item">
+            <div class="bullet-dot"></div>
+            <div>
+              <div class="bullet-title">Color grading cinematográfico</div>
+              <div class="bullet-desc">LUT padronizado aplicado uniformemente em todo o material dos dois palcos.</div>
+            </div>
+          </div>
+          <div class="bullet-item">
+            <div class="bullet-dot"></div>
+            <div>
+              <div class="bullet-title">Galeria fotográfica</div>
+              <div class="bullet-desc">Álbum completo em alta resolução para uso em redes sociais, press kit e arquivo do festival.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Shotdeck — Full Sets</div>
+        
+      <div class="shotdeck-card">
+        <div class="shotdeck-cam-header">
+          <div class="shotdeck-cam-dot"></div>
+          <div class="shotdeck-cam-name">Cameras 1</div>
+        </div>
+        <div class="shotdeck-frame">Frame: Lateral no DJ — booth camera fixada no lado do setup</div>
+        <img class="shotdeck-img" src="https://img.youtube.com/vi/rZ1XAZK3368/maxresdefault.jpg" alt="Ref cam 1" />
+        <div class="shotdeck-ref">Ref: <a href="https://www.youtube.com/watch?v=rZ1XAZK3368" target="_blank">Charlotte de Witte — Kappa FuturFestival 2025</a></div>
+      </div>
+        
+      <div class="shotdeck-card">
+        <div class="shotdeck-cam-header">
+          <div class="shotdeck-cam-dot"></div>
+          <div class="shotdeck-cam-name">Cameras 2</div>
+        </div>
+        <div class="shotdeck-frame">Frame: Móvel na pista — contornando o artista e crowd</div>
+        <img class="shotdeck-img" src="https://img.youtube.com/vi/4jyqoFcXzbY/maxresdefault.jpg" alt="Ref cam 2" />
+        <div class="shotdeck-ref">Ref: <a href="https://www.youtube.com/watch?v=4jyqoFcXzbY" target="_blank">WhoMadeWho — BOMA Brasília 2025</a></div>
+      </div>
+        
+      <div class="shotdeck-card">
+        <div class="shotdeck-cam-header">
+          <div class="shotdeck-cam-dot"></div>
+          <div class="shotdeck-cam-name">Cameras 3</div>
+        </div>
+        <div class="shotdeck-frame">Frame: Pista aberta — wide shot palco + crowd</div>
+        <img class="shotdeck-img" src="https://img.youtube.com/vi/KEMGXHFw0d0/maxresdefault.jpg" alt="Ref cam 3" />
+        <div class="shotdeck-ref">Ref: <a href="https://www.youtube.com/watch?v=KEMGXHFw0d0" target="_blank">Vintage Culture — Loveland Festival 2025</a></div>
+      </div>
+        
+      <div class="shotdeck-card">
+        <div class="shotdeck-cam-header">
+          <div class="shotdeck-cam-dot"></div>
+          <div class="shotdeck-cam-name">Cameras 4</div>
+        </div>
+        <div class="shotdeck-frame">Frame: Booth close-ups — equipamentos, mãos, detalhes</div>
+        <img class="shotdeck-img" src="https://img.youtube.com/vi/qvCh6t-7ouo/maxresdefault.jpg" alt="Ref cam 4" />
+        <div class="shotdeck-ref">Ref: <a href="https://www.youtube.com/watch?v=qvCh6t-7ouo" target="_blank">Vintage Culture — Awakenings Festival 2025</a></div>
+      </div>
+        
+      <div class="shotdeck-card">
+        <div class="shotdeck-cam-header">
+          <div class="shotdeck-cam-dot"></div>
+          <div class="shotdeck-cam-name">Cameras 5 / Drone</div>
+        </div>
+        <div class="shotdeck-frame">Frame: Aéreo — plongée e movimentos sobre a pista</div>
+        <img class="shotdeck-img" src="https://img.youtube.com/vi/xXRjglkAmq8/maxresdefault.jpg" alt="Ref cam 5 / Drone" />
+        <div class="shotdeck-ref">Ref: <a href="https://www.youtube.com/watch?v=xXRjglkAmq8" target="_blank">Vintage Culture — Ultra Music Festival 2026</a></div>
+      </div>
+      </div>
+    </div>
+
+    <!-- ===== ABA 2: PISTA COLETIVOS ===== -->
+    <div class="tab-panel" id="tab-pista-coletivos">
+      <div class="op-label">Operação 02</div>
+      <div class="op-title">PISTA COLETIVOS</div>
+      <div class="op-sub">
+        Palco underground · Cena eletrônica local
+        <small>5uinto · Birosca · Boogie · Antena · Paralelo nos dois dias</small>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Escopo da Captação</div>
+        <div class="price-row">
+          <div>
+            <div class="pr-label">Captação</div>
+            <div class="pr-sub">Incluso: 4 câmeras · equipe dedicada ao palco underground · 2 dias</div>
+          </div>
+        </div>
+        <div class="price-row">
+          <div>
+            <div class="pr-label">Equipamentos</div>
+            <div class="pr-sub">Sony A7SIII · Sony A7IV · Sony FX3 · Canon R5C + suporte e gimbal</div>
+          </div>
+        </div>
+        <div class="price-row">
+          <div>
+            <div class="pr-label">Pós-produção</div>
+            <div class="pr-sub">Full sets por coletivo · mín. 10 drops cada · color grading padronizado com Pista Externa</div>
+          </div>
+        </div>
+        <div class="price-row">
+          <div>
+            <div class="pr-label">Drone compartilhado</div>
+            <div class="pr-sub">Cobertura aérea do palco Coletivos integrada ao material geral do festival</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">O que está incluso</div>
+        <div class="bullet-box">
+          <div class="bullet-item">
+            <div class="bullet-dot"></div>
+            <div>
+              <div class="bullet-title">4 câmeras no palco Coletivos</div>
+              <div class="bullet-desc">Sony A7SIII (low light otimizado para ambientes fechados), A7IV, FX3 e Canon R5C cobrindo os coletivos locais.</div>
+            </div>
+          </div>
+          <div class="bullet-item">
+            <div class="bullet-dot"></div>
+            <div>
+              <div class="bullet-title">Full sets de todos os coletivos</div>
+              <div class="bullet-desc">5uinto, Birosca, Boogie e Antena — cobertura completa dos dois dias, com áudio sincronizado.</div>
+            </div>
+          </div>
+          <div class="bullet-item">
+            <div class="bullet-dot"></div>
+            <div>
+              <div class="bullet-title">Mínimo 10 drops por coletivo</div>
+              <div class="bullet-desc">Formato vertical e horizontal. Prazo: 48h após cada set. Identidade visual unificada com Pista Externa.</div>
+            </div>
+          </div>
+          <div class="bullet-item">
+            <div class="bullet-dot"></div>
+            <div>
+              <div class="bullet-title">Color grading padronizado</div>
+              <div class="bullet-desc">Mesmo LUT da Pista Externa, garantindo coesão visual no material completo do festival.</div>
+            </div>
+          </div>
+          <div class="bullet-item">
+            <div class="bullet-dot"></div>
+            <div>
+              <div class="bullet-title">Integração com drone</div>
+              <div class="bullet-desc">Tomadas aéreas do palco Coletivos incluídas no material geral do evento.</div>
+            </div>
+          </div>
+          <div class="bullet-item">
+            <div class="bullet-dot"></div>
+            <div>
+              <div class="bullet-title">Visibilidade para a cena local</div>
+              <div class="bullet-desc">Material pensado para impulsionar os coletivos nas redes — formatos prontos para repost.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Shotdeck — Full Sets</div>
+        
+      <div class="shotdeck-card">
+        <div class="shotdeck-cam-header">
+          <div class="shotdeck-cam-dot"></div>
+          <div class="shotdeck-cam-name">Cameras 1</div>
+        </div>
+        <div class="shotdeck-frame">Frame: Lateral no DJ — booth camera no setup do coletivo</div>
+        <img class="shotdeck-img" src="https://img.youtube.com/vi/QfkgSlmoe1I/maxresdefault.jpg" alt="Ref cam 1" />
+        <div class="shotdeck-ref">Ref: <a href="https://www.youtube.com/watch?v=QfkgSlmoe1I" target="_blank">Charlotte de Witte — Kappa FuturFestival 2025</a></div>
+      </div>
+        
+      <div class="shotdeck-card">
+        <div class="shotdeck-cam-header">
+          <div class="shotdeck-cam-dot"></div>
+          <div class="shotdeck-cam-name">Cameras 2</div>
+        </div>
+        <div class="shotdeck-frame">Frame: Móvel na pista — crowd e artista em ambiente underground</div>
+        <img class="shotdeck-img" src="https://img.youtube.com/vi/ciMBeF6RQbI/maxresdefault.jpg" alt="Ref cam 2" />
+        <div class="shotdeck-ref">Ref: <a href="https://www.youtube.com/watch?v=ciMBeF6RQbI" target="_blank">WhoMadeWho — Mayan Warrior, Burning Man 2024</a></div>
+      </div>
+        
+      <div class="shotdeck-card">
+        <div class="shotdeck-cam-header">
+          <div class="shotdeck-cam-dot"></div>
+          <div class="shotdeck-cam-name">Cameras 3</div>
+        </div>
+        <div class="shotdeck-frame">Frame: Pista aberta — wide shot palco Coletivos</div>
+        <img class="shotdeck-img" src="https://img.youtube.com/vi/gwbZISet7Gg/maxresdefault.jpg" alt="Ref cam 3" />
+        <div class="shotdeck-ref">Ref: <a href="https://www.youtube.com/watch?v=gwbZISet7Gg" target="_blank">Vintage Culture B2B Beltran — Kappa FuturFestival 2025</a></div>
+      </div>
+        
+      <div class="shotdeck-card">
+        <div class="shotdeck-cam-header">
+          <div class="shotdeck-cam-dot"></div>
+          <div class="shotdeck-cam-name">Cameras 4</div>
+        </div>
+        <div class="shotdeck-frame">Frame: Detalhes — equipamentos, mãos, expressões</div>
+        <img class="shotdeck-img" src="https://img.youtube.com/vi/UDnxoiOWc-I/maxresdefault.jpg" alt="Ref cam 4" />
+        <div class="shotdeck-ref">Ref: <a href="https://www.youtube.com/watch?v=UDnxoiOWc-I" target="_blank">WhoMadeWho — The Moment Festival, Dubai 2025</a></div>
+      </div>
+      </div>
+    </div>
+
+    <!-- ===== ABA 3: PACOTE COMPLETO ===== -->
+    <div class="tab-panel" id="tab-pacote">
+
+      <div class="section">
+        <div class="section-title">Resumo das Operações</div>
+        <div class="resumo-row">
+          <div class="resumo-left">
+            <span class="resumo-num">OP 01</span>
+            <span class="resumo-title">Pista Externa</span>
+            <span class="resumo-sub">5 câmeras + drone · headliners internacionais · 2 dias</span>
+          </div>
+        </div>
+        <div class="resumo-row">
+          <div class="resumo-left">
+            <span class="resumo-num">OP 02</span>
+            <span class="resumo-title">Pista Coletivos</span>
+            <span class="resumo-sub">4 câmeras · 5uinto, Birosca, Boogie, Antena · 2 dias</span>
+          </div>
+        </div>
+        <div class="resumo-row">
+          <div class="resumo-left">
+            <span class="resumo-num">ESCOPO</span>
+            <span class="resumo-title">31 sets · 310+ drops · galeria fotográfica · drone</span>
+            <span class="resumo-sub">Equipe de 8 pessoas · 6 operadores de câmera · 1 drone · 1 fotógrafo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="total-bar">
+        <div class="tb-label">Investimento Total</div>
+        <div class="tb-right">
+          <div class="tb-stack">
+            <span class="tb-final">R$ 35.000</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section">
+        <div class="section-title">Plano de Pagamento</div>
+        <div class="payment-intro">
+          Investimento total: <span class="accent">R$ 35.000</span><br/>
+          Parcelado em <strong>2 etapas</strong> vinculadas ao contrato e à entrega final.
+        </div>
+        <div class="payment-rows">
+          <div class="payment-row first">
+            <div>
+              <div class="payment-month">Abril/2026</div>
+              <div class="payment-label">1ª parcela · Fechamento do contrato</div>
+            </div>
+            <div class="payment-right payment-stack">
+              <div class="payment-bottom-row">
+                <span class="payment-badge">40% FECHAMENTO</span>
+                <span class="payment-value">R$ 14.000</span>
+              </div>
+            </div>
+          </div>
+          <div class="payment-row">
+            <div>
+              <div class="payment-month">Junho/2026</div>
+              <div class="payment-label">2ª parcela · Entrega final do material</div>
+            </div>
+            <div class="payment-right">
+              <div class="payment-bottom-row">
+                <span class="payment-badge" style="background:rgba(255,255,255,0.06);color:#888;">60% ENTREGA</span>
+                <span class="payment-value">R$ 21.000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section">
+        <div class="section-title">Timeline</div>
+        <div class="timeline">
+          <div class="timeline-line"></div>
+          <div class="timeline-item active">
+            <div class="timeline-dot active"></div>
+            <div class="timeline-date">ABRIL/2026 · AGORA</div>
+            <div class="timeline-title">Fechamento + Pré-produção</div>
+            <div class="timeline-desc">Assinatura do contrato, briefing técnico, visita ao Museu Nacional da República, processo de autorização DECEA para drone.</div>
+          </div>
+          <div class="timeline-item active">
+            <div class="timeline-dot active"></div>
+            <div class="timeline-date">25–26/04/2026 · EVENTO</div>
+            <div class="timeline-title">Operação — Festival Pista Livre BSB 2026</div>
+            <div class="timeline-desc">Captação simultânea nos dois palcos. 8 operadores em campo. Drops entregues em até 48h após cada set.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">MAIO/2026</div>
+            <div class="timeline-title">Entrega Contínua — Drops</div>
+            <div class="timeline-desc">Drops verticais e horizontais entregues continuamente. Mínimo 310 vídeos (10 por artista/coletivo).</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">JUNHO/2026 · ENTREGA FINAL</div>
+            <div class="timeline-title">Full Sets + Galeria + Fechamento</div>
+            <div class="timeline-desc">31 full sets masterizados e entregues. Galeria fotográfica finalizada. Emissão da NF e 2ª parcela.</div>
+          </div>
+        </div>
+
+        <div class="nota">
+          <span class="accent">NF inclusa.</span> Valores baseados na proposta de Abril/2026. Equipe de 8 pessoas (6 operadores de câmera, 1 piloto de drone, 1 fotógrafo). Incluso: alimentação nos 2 dias, logística interna e seguro de equipamentos. Autorização DECEA para drone orientada pela equipe. Drops em até 48h · Full Sets em até 60 dias. <span class="accent">Proposta válida por 7 dias.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>
+      <div class="footer-contact-label">CONTATO</div>
+      <div class="footer-contact-email">gustavoalves@botconversa.com.br</div>
+    </div>
+    <div class="footer-tagline">STUDIOCOMP · AUDIOVISUAL</div>
+    <svg width="12" height="58" viewBox="0 0 36 175" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M31.4209 0.53857C34.3116 2.2404 34.9508 8.4981 33.3344 19.3035L32.8255 22.6217L32.1863 25.9398C31.7588 28.6636 31.4209 30.8336 31.1644 32.45C30.57 37.299 30.4804 40.9591 30.9079 43.4264C31.1644 45.0427 31.3761 46.5328 31.5471 47.8927C31.885 49.851 32.1863 51.7238 32.4387 53.5112C33.2041 58.2787 33.8434 62.6188 34.3523 66.5314C35.7121 77.5933 36.1803 85.3412 35.7569 89.7627C35.4149 92.8284 34.9915 96.5293 34.4785 100.869C33.7131 106.146 32.9476 110.954 32.1782 115.294C29.9633 127.378 27.9236 133.847 26.0507 134.694C23.8359 135.631 21.3687 135.289 18.649 133.672C15.9252 132.056 14.3089 130.098 13.8 127.801C13.458 126.271 13.3725 123.844 13.5435 120.526C13.629 119.333 13.7552 117.717 13.9262 115.677L14.1827 113.124L14.4392 110.445C15.2901 101 15.0784 93.8096 13.8 88.871C13.0346 85.8949 12.0982 83.1711 10.9907 80.7039C10.2253 79.0875 9.15862 77.0885 7.79878 74.7027C5.07504 70.0247 3.3325 65.9411 2.56708 62.4478C1.03625 55.555 0.185322 46.8341 0.0143248 36.2811C-0.156673 23.7698 1.20318 16.1116 4.09792 13.3064C7.58709 9.73172 12.3099 6.45834 18.2663 3.4781C24.6502 0.245432 29.031 -0.735765 31.4127 0.542646L31.4209 0.53857ZM30.6555 152.82C32.0153 157.075 31.5919 161.968 29.377 167.501C27.2477 172.949 24.9108 175.16 22.358 174.138C19.2068 172.859 16.1044 171.076 13.0386 168.776C9.46397 166.052 7.76215 163.796 7.93315 162.009C8.27107 159.456 9.12199 156.692 10.4859 153.712C12.1877 150.222 13.9751 148.268 15.8479 147.841C18.4861 147.161 21.2506 147.161 24.1453 147.841C27.6345 148.606 29.8045 150.267 30.6555 152.82Z" fill="#C9FF58"/></svg>
+  </div>
+
+  <script>
+    function switchTab(id, btn) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
