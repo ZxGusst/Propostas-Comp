@@ -1,6 +1,6 @@
 node_modules/
-package-lock.json
 *.pdf
-proposta-simon-studiocomp.jsx
-gerar-pdf.js
-capa-navegacao.html
+*.png
+__pycache__/
+*.pyc
+.claude/

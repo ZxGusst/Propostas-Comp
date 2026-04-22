@@ -1,0 +1,12 @@
+{
+  "name": "conversor-pdf",
+  "version": "1.0.0",
+  "description": "Converte HTML standalone em PDF usando Puppeteer",
+  "main": "gerar-pdf.js",
+  "scripts": {
+    "gerar": "node gerar-pdf.js"
+  },
+  "dependencies": {
+    "puppeteer": "^22.0.0"
+  }
+}

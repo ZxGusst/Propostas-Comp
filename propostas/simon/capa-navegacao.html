@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0a0a0a;
+      width: 430px;
+      height: 932px;
+      font-family: 'DM Sans', sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .top { padding: 40px 32px 0; flex-shrink: 0; }
+
+    .label { color: #555; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 28px; }
+    h1 { font-size: 30px; font-weight: 700; line-height: 1.15; margin-top: 6px; }
+    h1 em {
+      color: #C9FF58;
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 34px;
+    }
+    .client { margin-top: 14px; color: #555; font-size: 13px; }
+    .client strong { color: #ccc; font-weight: 600; }
+
+    .nav { padding: 40px 32px 0; flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+
+    .nav-card {
+      border: 1px solid #1f1f1f;
+      border-radius: 12px;
+      padding: 20px 22px;
+      background: #0f0f0f;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .nav-card-left { display: flex; align-items: center; gap: 16px; }
+    .nav-num {
+      color: #C9FF58;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      width: 22px;
+    }
+    .nav-title { font-size: 15px; font-weight: 600; color: #e0e0e0; }
+    .nav-sub { font-size: 11px; color: #555; margin-top: 2px; }
+    .nav-arrow { color: #333; font-size: 18px; }
+
+    .footer {
+      border-top: 1px solid #1a1a1a;
+      padding: 18px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .footer-contact div:first-child { color: #555; font-size: 10px; letter-spacing: 0.05em; }
+    .footer-contact div:last-child  { color: #777; font-size: 11px; }
+    .footer-tagline { color: #333; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <svg width="18" height="88" viewBox="0 0 36 175" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M31.4209 0.53857C34.3116 2.2404 34.9508 8.4981 33.3344 19.3035L32.8255 22.6217L32.1863 25.9398C31.7588 28.6636 31.4209 30.8336 31.1644 32.45C30.57 37.299 30.4804 40.9591 30.9079 43.4264C31.1644 45.0427 31.3761 46.5328 31.5471 47.8927C31.885 49.851 32.1863 51.7238 32.4387 53.5112C33.2041 58.2787 33.8434 62.6188 34.3523 66.5314C35.7121 77.5933 36.1803 85.3412 35.7569 89.7627C35.4149 92.8284 34.9915 96.5293 34.4785 100.869C33.7131 106.146 32.9476 110.954 32.1782 115.294C29.9633 127.378 27.9236 133.847 26.0507 134.694C23.8359 135.631 21.3687 135.289 18.649 133.672C15.9252 132.056 14.3089 130.098 13.8 127.801C13.458 126.271 13.3725 123.844 13.5435 120.526C13.629 119.333 13.7552 117.717 13.9262 115.677L14.1827 113.124L14.4392 110.445C15.2901 101 15.0784 93.8096 13.8 88.871C13.0346 85.8949 12.0982 83.1711 10.9907 80.7039C10.2253 79.0875 9.15862 77.0885 7.79878 74.7027C5.07504 70.0247 3.3325 65.9411 2.56708 62.4478C1.03625 55.555 0.185322 46.8341 0.0143248 36.2811C-0.156673 23.7698 1.20318 16.1116 4.09792 13.3064C7.58709 9.73172 12.3099 6.45834 18.2663 3.4781C24.6502 0.245432 29.031 -0.735765 31.4127 0.542646L31.4209 0.53857ZM30.6555 152.82C32.0153 157.075 31.5919 161.968 29.377 167.501C27.2477 172.949 24.9108 175.16 22.358 174.138C19.2068 172.859 16.1044 171.076 13.0386 168.776C9.46397 166.052 7.76215 163.796 7.93315 162.009C8.27107 159.456 9.12199 156.692 10.4859 153.712C12.1877 150.222 13.9751 148.268 15.8479 147.841C18.4861 147.161 21.2506 147.161 24.1453 147.841C27.6345 148.606 29.8045 150.267 30.6555 152.82Z" fill="#C9FF58"/>
+    </svg>
+    <div class="label">Proposta Comercial</div>
+    <h1>Pacote de Cobertura<br><em>Audiovisual Completo</em></h1>
+    <p class="client">Cliente — <strong>Simo Not Simon</strong></p>
+  </div>
+
+  <div class="nav">
+    <div class="nav-card" id="btn-quartzo">
+      <div class="nav-card-left">
+        <div class="nav-num">01</div>
+        <div>
+          <div class="nav-title">Quartzo · Chapada</div>
+          <div class="nav-sub">Cobertura de Drops · Alto Paraíso de Goiás</div>
+        </div>
+      </div>
+      <div class="nav-arrow">›</div>
+    </div>
+    <div class="nav-card" id="btn-rockinrio">
+      <div class="nav-card-left">
+        <div class="nav-num">02</div>
+        <div>
+          <div class="nav-title">Rock in Rio · RJ</div>
+          <div class="nav-sub">Cobertura de Full Sets · Set 2026</div>
+        </div>
+      </div>
+      <div class="nav-arrow">›</div>
+    </div>
+    <div class="nav-card" id="btn-pacote">
+      <div class="nav-card-left">
+        <div class="nav-num">03</div>
+        <div>
+          <div class="nav-title">Pacote Final</div>
+          <div class="nav-sub">Resumo · Pagamento · Timeline</div>
+        </div>
+      </div>
+      <div class="nav-arrow">›</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-contact">
+      <div>Project Inquiries:</div>
+      <div>contato@studiocomp.com.br</div>
+    </div>
+    <div class="footer-tagline">LOUD BRANDS ONLY!</div>
+    <svg width="12" height="58" viewBox="0 0 36 175" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M31.4209 0.53857C34.3116 2.2404 34.9508 8.4981 33.3344 19.3035L32.8255 22.6217L32.1863 25.9398C31.7588 28.6636 31.4209 30.8336 31.1644 32.45C30.57 37.299 30.4804 40.9591 30.9079 43.4264C31.1644 45.0427 31.3761 46.5328 31.5471 47.8927C31.885 49.851 32.1863 51.7238 32.4387 53.5112C33.2041 58.2787 33.8434 62.6188 34.3523 66.5314C35.7121 77.5933 36.1803 85.3412 35.7569 89.7627C35.4149 92.8284 34.9915 96.5293 34.4785 100.869C33.7131 106.146 32.9476 110.954 32.1782 115.294C29.9633 127.378 27.9236 133.847 26.0507 134.694C23.8359 135.631 21.3687 135.289 18.649 133.672C15.9252 132.056 14.3089 130.098 13.8 127.801C13.458 126.271 13.3725 123.844 13.5435 120.526C13.629 119.333 13.7552 117.717 13.9262 115.677L14.1827 113.124L14.4392 110.445C15.2901 101 15.0784 93.8096 13.8 88.871C13.0346 85.8949 12.0982 83.1711 10.9907 80.7039C10.2253 79.0875 9.15862 77.0885 7.79878 74.7027C5.07504 70.0247 3.3325 65.9411 2.56708 62.4478C1.03625 55.555 0.185322 46.8341 0.0143248 36.2811C-0.156673 23.7698 1.20318 16.1116 4.09792 13.3064C7.58709 9.73172 12.3099 6.45834 18.2663 3.4781C24.6502 0.245432 29.031 -0.735765 31.4127 0.542646L31.4209 0.53857ZM30.6555 152.82C32.0153 157.075 31.5919 161.968 29.377 167.501C27.2477 172.949 24.9108 175.16 22.358 174.138C19.2068 172.859 16.1044 171.076 13.0386 168.776C9.46397 166.052 7.76215 163.796 7.93315 162.009C8.27107 159.456 9.12199 156.692 10.4859 153.712C12.1877 150.222 13.9751 148.268 15.8479 147.841C18.4861 147.161 21.2506 147.161 24.1453 147.841C27.6345 148.606 29.8045 150.267 30.6555 152.82Z" fill="#C9FF58"/>
+    </svg>
+  </div>
+</body>
+</html>
